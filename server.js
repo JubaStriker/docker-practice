@@ -29,8 +29,3 @@ app.get('/', (req, res) => {
 app.get('/about', (req, res) => {
     res.send('This is the About route.');
 });
-
-// Start the server
-app.listen(port, () => {
-    console.log(`Server is running at http://localhost:${port}`);
-});
