@@ -5,11 +5,11 @@ require('dotenv').config();
 const { MongoClient } = require('mongodb');
 
 const mongoUrl = process.env.MONGODB_URI
-const dbName = 'docker-practice';
+const dbName = 'users';
 let db;
 
 // Connect to MongoDB
-MongoClient.connect(mongoUrl, { useUnifiedTopology: true })
+MongoClient.connect(mongoUrl)
     .then(client => {
         console.log('Connected to MongoDB');
         db = client.db(dbName);
