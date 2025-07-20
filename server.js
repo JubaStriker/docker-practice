@@ -26,6 +26,17 @@ app.get('/', (req, res) => {
     res.send('Hello from the Home route!');
 });
 
+app.get('/users', async (req, res) => {
+    try {
+        const users = await db.collection('users').find({}).toArray();
+        res.status(200).send(users)
+    }
+    catch (e) {
+        console.error('Failed to get users:', err);
+        res.status(500).send({ error: 'Internal Server Error' });
+    }
+});
+
 // Route 2: About route
 app.post('/addUser', async (req, res) => {
     try {
