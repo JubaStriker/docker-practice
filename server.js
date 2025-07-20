@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-const port = 3000;
+const port = 5500;
 require('dotenv').config();
 const { MongoClient } = require('mongodb');
 
@@ -32,7 +32,7 @@ app.get('/users', async (req, res) => {
         res.status(200).send(users)
     }
     catch (e) {
-        console.error('Failed to get users:', err);
+        console.error('Failed to get users:', e);
         res.status(500).send({ error: 'Internal Server Error' });
     }
 });
