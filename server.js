@@ -5,7 +5,8 @@ require('dotenv').config();
 const { MongoClient } = require('mongodb');
 
 const mongoUrl = process.env.MONGODB_URI
-const dbName = 'users';
+const dbName = 'docker-practice';
+let db;
 
 // Connect to MongoDB
 MongoClient.connect(mongoUrl, { useUnifiedTopology: true })
@@ -26,6 +27,22 @@ app.get('/', (req, res) => {
 });
 
 // Route 2: About route
-app.get('/about', (req, res) => {
-    res.send('This is the About route.');
+app.post('/addUser', async (req, res) => {
+    try {
+        const userObject = req.body;
+
+        if (!userObject || !userObject.name) {
+            return res.status(400).send({ error: 'Invalid user data' });
+        }
+
+        const result = await db.collection('users').insertOne(userObject);
+
+        res.status(201).send({
+            message: 'User added successfully',
+            userId: result.insertedId
+        });
+    } catch (err) {
+        console.error('Failed to insert user:', err);
+        res.status(500).send({ error: 'Internal Server Error' });
+    }
 });
