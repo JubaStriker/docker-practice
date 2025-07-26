@@ -1,20 +1,10 @@
-# Use the official Node.js LTS image
-FROM node:18
+FROM node
 
-# Create app directory
-WORKDIR /usr/src/app
+ENV MONGODB_DB_USERNAME=admin
+ENV MONGODB_DB_PASSWORD=qwerty
 
-# Copy package.json and package-lock.json
-COPY package*.json ./
+RUN mkdir -p testapp
 
-# Install dependencies
-RUN npm install
+COPY . /testapp
 
-# Copy the application source
-COPY . .
-
-# Expose the port the app runs on
-EXPOSE 3000
-
-# Start the app
-CMD ["node", "server.js"]
+CMD ["node", "/testapp/server.js"]
